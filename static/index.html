@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organigrama Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script type="module" src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <div class="noise"></div>
+    <main class="layout">
+      <section class="panel hero">
+        <p class="kicker">Audio/Video to Org Chart</p>
+        <h1>Organigrama Studio</h1>
+        <p>
+          Sube un archivo mp3, mp4 o wav, extrae la transcripción y transforma el resultado en un organigrama editable.
+          Luego expórtalo en formato draw.io.
+        </p>
+      </section>
+
+      <section class="panel upload">
+        <h2>1. Cargar archivo</h2>
+        <form id="uploadForm">
+          <label for="fileInput">Archivo</label>
+          <input id="fileInput" name="file" type="file" accept=".mp3,.mp4,.wav" required />
+
+          <label for="modelSize">Modelo Whisper</label>
+          <select id="modelSize" name="modelSize">
+            <option value="tiny">tiny (rápido)</option>
+            <option value="base" selected>base (balance)</option>
+            <option value="small">small (mejor calidad)</option>
+            <option value="medium">medium (más lento)</option>
+          </select>
+
+          <button type="submit">Transcribir y generar</button>
+        </form>
+        <p id="status" class="status">Listo para procesar.</p>
+      </section>
+
+      <section class="panel transcript">
+        <h2>2. Transcripción</h2>
+        <textarea id="transcript" rows="8" placeholder="Aquí aparecerá la transcripción" readonly></textarea>
+      </section>
+
+      <section class="panel editor">
+        <h2>3. Editar organigrama</h2>
+
+        <div class="grid-two">
+          <div>
+            <h3>Agregar nodo</h3>
+            <input id="nodeId" placeholder="id (ej: finanzas)" />
+            <input id="nodeName" placeholder="nombre (ej: Finanzas)" />
+            <input id="nodeTitle" placeholder="cargo (opcional)" />
+            <button id="addNodeBtn" type="button">Agregar nodo</button>
+          </div>
+
+          <div>
+            <h3>Agregar relación</h3>
+            <input id="edgeFrom" placeholder="from id" />
+            <input id="edgeTo" placeholder="to id" />
+            <input id="edgeLabel" placeholder="etiqueta (ej: reporta)" />
+            <button id="addEdgeBtn" type="button">Agregar relación</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="renderBtn" type="button">Renderizar organigrama</button>
+          <button id="exportBtn" type="button">Exportar draw.io</button>
+        </div>
+
+        <h3>JSON editable</h3>
+        <textarea id="chartJson" rows="12"></textarea>
+      </section>
+
+      <section class="panel diagram">
+        <h2>4. Vista previa</h2>
+        <div id="diagram"></div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  </body>
+</html>
