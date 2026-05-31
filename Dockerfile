@@ -11,8 +11,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /app/requirements.txt
-RUN pip install --upgrade pip \
-    && pip install -r /app/requirements.txt
+RUN pip install --upgrade pip "setuptools<81" wheel \
+    && pip install --no-build-isolation -r /app/requirements.txt
 
 COPY app /app/app
 COPY static /app/static

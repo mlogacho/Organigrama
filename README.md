@@ -75,3 +75,10 @@ curl http://localhost:8000/api/health
 - La inferencia de relaciones jerárquicas desde texto usa reglas simples en español.
 - Si la transcripción no contiene relaciones claras, el sistema crea una plantilla base editable.
 - Puedes mejorar la precisión cambiando el modelo a small o medium.
+- Para despliegues en servidores pequeños, el proyecto usa `torch` CPU-only para reducir consumo de disco y evitar dependencias CUDA pesadas.
+
+## Producción
+
+Instancia AWS actual:
+
+- https://organigrama.nexaflow-ia.com
